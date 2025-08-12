@@ -1,0 +1,467 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 30px;
+  box-sizing: border-box;
+  min-height: 100dvh;
+  background: #8c8e90;
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Arial", sans-serif;
+  padding: 15px;
+  border: 7px groove #bab5b5;
+  background: #8e8c89;
+}
+
+.inner-container {
+  width: 100%;
+  background: #8e8c89;
+  display: grid;
+  grid-template: 9fr 1fr / 5fr 4fr;
+  & > div {
+    border: 7px groove #bab5b5;
+  }
+}
+
+.planView {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 7fr 1fr;
+}
+
+.plan-top {
+  padding-block: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.plan-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.metrics {
+  border: 1.5px solid #000;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: italic;
+  width: 55px;
+  & > h2 {
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    padding: 0;
+    text-align: center;
+  }
+  & > h2:has(+ p),
+  h2:has(+ ul) {
+    margin-bottom: 1.2em;
+  }
+  & > ul,
+  p {
+    list-style: none;
+    padding-left: 0.7em;
+    margin-bottom: 1em;
+  }
+  & > ul > li:not(:last-child) {
+    margin-bottom: 0.25em;
+  }
+}
+
+.map {
+  background: center / cover url(./map.png) no-repeat;
+  flex-grow: 1;
+}
+
+.plan-bottom {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+  gap: 7px;
+  background: #e4ea70;
+  padding: 10px 10px 5px;
+}
+
+.plan-bottom p,
+h1,
+sub {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  display: block;
+  width: 100%;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.plan-bottom h1 {
+  font-size: 1.7em;
+  font-weight: 900;
+  flex-grow: 1;
+  letter-spacing: 0.05em;
+  line-height: 2;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  & p:last-child {
+    font-size: 3em;
+    font-weight: 800;
+    font-style: italic;
+  }
+  & p:first-child {
+    font-style: normal;
+  }
+}
+
+.stats {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+header > nav > ul {
+  display: flex;
+  list-style: none;
+}
+
+.stats li:first-child {
+  border: 3px #c3baba;
+  border-style: inset none none inset;
+}
+
+header li {
+  display: inline-block;
+}
+
+header li button {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: rgb(98, 93, 86);
+  border: 5px groove #bab5b5;
+  background-clip: text;
+  background: transparent;
+  cursor: pointer;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  border: 7px groove #bab5b5;
+  background: #545a60;
+  flex: 1;
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 5em;
+  padding-bottom: 4em;
+}
+
+.status .symbol {
+  width: 80px;
+  height: 80px;
+  border: 4px solid #000;
+  background: #5dac53;
+  display: grid;
+  place-items: center;
+  & > p {
+    width: 70%;
+    height: 70%;
+    border: 3px solid #000;
+    border-radius: 50%;
+    background: conic-gradient(
+      yellow,
+      yellow 90deg,
+      #000 90deg,
+      #000 180deg,
+      yellow 180deg,
+      yellow 270deg,
+      #000 270deg
+    );
+  }
+}
+
+.status .message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #fff;
+  border: 4px solid #000;
+  padding: 10px;
+  font-style: italic;
+  text-transform: uppercase;
+  font-weight: 800;
+  & > p:first-child {
+    font-size: 2em;
+  }
+}
+
+.controls {
+  display: grid;
+  grid-template-areas:
+    "hold hold quit quit new new"
+    "next next rw ff play stop";
+  margin-bottom: 10px;
+  & > button {
+    background: #9ea195;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 0.5px #716868;
+    text-shadow: 1px 1px 1px #cbc6c6, -1px -1px 1px #524f4f;
+    cursor: pointer;
+    border: 5px groove #bab5b5;
+    padding-block: 5px;
+    &:hover {
+      background: #9ea195;
+    }
+  }
+  & > button.hold {
+    grid-area: hold;
+  }
+  & > button.quit {
+    grid-area: quit;
+  }
+  & > button.new {
+    grid-area: new;
+  }
+  & > button.next {
+    grid-area: next;
+  }
+  & > button.rw {
+    grid-area: rw;
+  }
+  & > button.ff {
+    grid-area: ff;
+  }
+  & > button.play {
+    grid-area: play;
+  }
+  & > button.stop {
+    grid-area: stop;
+  }
+}
+
+.log {
+  height: 280px;
+}
+
+.log-content {
+  background: #fff;
+  border: 7px groove #bab5b5;
+  padding: 3px;
+  font-style: italic;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  font-size: 1.2em;
+  & > dl.log-entry {
+    display: flex;
+    gap: 10px;
+    & > dt {
+      text-transform: uppercase;
+      background: #7dcf76;
+      padding: 2px 5px;
+      border-radius: 1px;
+      color: #fff;
+    }
+    & > dd {
+      padding: 2px;
+      margin: 0;
+      padding: 0;
+      align-content: center;
+    }
+    & > dd:before {
+      content: "-";
+      padding-right: 5px;
+    }
+  }
+}
+
+@media (max-width: 1139px) {
+  .inner-container {
+    grid-template: 1fr / 1fr;
+  }
+  .status {
+    padding-bottom: 5em;
+  }
+}
+
+.screen {
+  padding: 5px 20px;
+}
+
+.screen-content {
+  border: 7px groove #bab5b5;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.2em;
+  padding: 3px 5px;
+}
+
+.label {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow: inset 0 0 1px 2px rgba(0, 0, 0, 0.8);
+  padding: 4px;
+  background: #fff;
+  position: relative;
+  & > p {
+    background: #000;
+    color: #fff;
+    padding: 1px 12px;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 1.5px;
+    right: -10px;
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 12px solid #fff;
+  }
+}
+
+.screen-content .text {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow: inset 0 0 1px 2px rgba(0, 0, 0, 0.8);
+  padding: 12px 3px 12px 12px;
+  background: #fff;
+  position: relative;
+  flex-grow: 1;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 1.5px;
+    left: -17px;
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+    border-right: 20px solid #fff;
+  }
+}
+
+.sysIcons {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+}
+
+.sysIcons p {
+  font-style: italic;
+  background: #000;
+  color: #fff;
+  padding: 1px 12px;
+  white-space: nowrap;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.sysIcons-content {
+  display: flex;
+  gap: 5px;
+  justify-content: space-around;
+  flex-grow: 1;
+}
+
+.sysIcons figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-end;
+}
+
+.sysIcons figcaption {
+  font-size: 11px;
+}
+
+.macicon {
+  background: #fff;
+  width: 50px;
+  height: 13px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+.macicon::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 2px;
+  top: 5.5px;
+  left: 2.5px;
+  background: #000;
+}
+
+.trashicon {
+  background: #fff;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.miniarrayicon {
+  background: #fff;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+}
