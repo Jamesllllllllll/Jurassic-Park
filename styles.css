@@ -88,6 +88,108 @@ body {
 .map {
   background: center / cover url(./map.png) no-repeat;
   flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.secured-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+/* Secured overlay without pseudo-elements */
+.plan-top {
+  position: relative;
+}
+.secured-overlay {
+  --secured-thickness: 20px; /* top/bottom */
+  --secured-side-thickness: 75px; /* left/right */
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+  box-shadow: inset 0 0 0 var(--secured-thickness) green;
+}
+.secured-active > .secured-overlay {
+  display: block;
+}
+.secured-overlay .band {
+  position: absolute;
+  background: green;
+  color: #fff;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  font-weight: 900;
+}
+
+.secured-overlay .band.band-top,
+.secured-overlay .band.band-bottom {
+  background: none;
+}
+
+.band-wrapper {
+  background: green;
+  text-align: center;
+}
+
+.band-top .band-wrapper {
+  padding: 0px 20px 10px;
+}
+
+.band-bottom .band-wrapper {
+  padding: 10px 20px 0px;
+}
+
+.secured-overlay .band .band-text {
+  animation: blink 1s steps(2) infinite;
+}
+.secured-overlay .band-left,
+.secured-overlay .band-right {
+  top: 0;
+  bottom: 0;
+  width: var(--secured-side-thickness);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  font-size: 3em;
+}
+.secured-overlay .band-left {
+  left: 0;
+}
+.secured-overlay .band-right {
+  right: 0;
+  transform: rotate(180deg);
+}
+.secured-overlay .band-top,
+.secured-overlay .band-bottom {
+  left: 0;
+  right: 0;
+  height: var(--secured-thickness);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+}
+.secured-overlay .band-top {
+  top: 35px;
+}
+.secured-overlay .band-bottom {
+  bottom: 35px;
+}
+/* remove legacy secured pseudo-element and band rules (replaced by .secured-overlay) */
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
 }
 
 .plan-bottom {
@@ -241,7 +343,12 @@ header li button {
     "hold hold quit quit new new"
     "next next rw ff play stop";
   margin-bottom: 10px;
-  & > button {
+  & form,
+  & fieldset {
+    display: contents;
+  }
+  & > button,
+  label {
     background: #9ea195;
     font-size: 1.2em;
     font-weight: 700;
@@ -252,9 +359,22 @@ header li button {
     cursor: pointer;
     border: 5px groove #bab5b5;
     padding-block: 5px;
+    text-align: center;
     &:hover {
-      background: #9ea195;
+      color: #fff;
     }
+  }
+  & input {
+    display: none;
+  }
+  & input:checked + label {
+    color: #fff;
+  }
+  & input:checked + label.stop {
+    color: red;
+  }
+  & input:checked + label.play {
+    color: greenyellow;
   }
   & > button.hold {
     grid-area: hold;
@@ -268,16 +388,16 @@ header li button {
   & > button.next {
     grid-area: next;
   }
-  & > button.rw {
+  & label.rw {
     grid-area: rw;
   }
-  & > button.ff {
+  & label.ff {
     grid-area: ff;
   }
-  & > button.play {
+  & label.play {
     grid-area: play;
   }
-  & > button.stop {
+  & label.stop {
     grid-area: stop;
   }
 }
