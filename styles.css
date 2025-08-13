@@ -277,6 +277,17 @@ h3 {
   font-size: 16px;
 }
 
+/* Magic word image in BSOD */
+.bsod-overlay .magic-word-img {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 45%;
+  height: auto;
+  display: none;
+  pointer-events: none;
+}
+
 @keyframes blink {
   0%,
   49% {
