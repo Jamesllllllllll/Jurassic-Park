@@ -80,6 +80,14 @@
       } catch (_) {}
       window.bsodInterval = null;
     }
+    // Ensure any previous looping audio is stopped when restarting BSOD
+    if (window.bsodMagicAudio) {
+      try {
+        window.bsodMagicAudio.pause();
+        window.bsodMagicAudio.currentTime = 0;
+      } catch (_) {}
+      window.bsodMagicAudio = null;
+    }
     window.gsap.killTweensOf([overlay, contentEl]);
 
     overlay.style.display = "block";
@@ -108,6 +116,32 @@
       .call(() => {
         // Show the magic word image when repeating lines start
         if (magicImg) magicImg.style.display = "block";
+
+        // Play "ah ah ah" sound when repeating lines begin (loop until cleared)
+        try {
+          if (window.bsodMagicAudio) {
+            try {
+              window.bsodMagicAudio.pause();
+              window.bsodMagicAudio.currentTime = 0;
+            } catch (_) {}
+          }
+          const magicAudio = new Audio('assets/sounds/jurassic-park-ah-ah-ah.mp3');
+          magicAudio.preload = 'auto';
+          magicAudio.loop = true;
+          magicAudio.play().catch(() => {
+            const handler = () => {
+              magicAudio.play().finally(() => {
+                document.removeEventListener('click', handler);
+                document.removeEventListener('keydown', handler);
+                document.removeEventListener('touchstart', handler);
+              });
+            };
+            document.addEventListener('click', handler, { once: true });
+            document.addEventListener('keydown', handler, { once: true });
+            document.addEventListener('touchstart', handler, { once: true });
+          });
+          window.bsodMagicAudio = magicAudio;
+        } catch (_) {}
         const maxLines = computeMaxVisibleLines(overlay, contentEl);
         const phrase = "YOU DIDN'T SAY THE MAGIC WORD!";
 
@@ -152,6 +186,13 @@
         clearInterval(window.bsodInterval);
       } catch (_) {}
       window.bsodInterval = null;
+    }
+    if (window.bsodMagicAudio) {
+      try {
+        window.bsodMagicAudio.pause();
+        window.bsodMagicAudio.currentTime = 0;
+      } catch (_) {}
+      window.bsodMagicAudio = null;
     }
     window.gsap.killTweensOf([overlay, contentEl]);
     overlay.style.display = "none";
