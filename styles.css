@@ -153,7 +153,9 @@ h3 {
 }
 
 .map {
-  /* background: center / cover url(./assets/images/secured.png) no-repeat; */
+  background: #000;
+  display: grid;
+  place-items: center;
   flex-grow: 1;
   box-sizing: border-box;
 }

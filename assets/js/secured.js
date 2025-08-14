@@ -19,6 +19,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function setMarkersSecuredActiveWithStagger() {
 		clearMarkerTimeouts();
+		function lockIcon(iconSvg) {
+			if (!iconSvg) return;
+			try {
+				const pathEl = iconSvg.querySelector('path');
+				if (!pathEl) return;
+				if (!iconSvg.dataset.origStrokeWidth) {
+					iconSvg.dataset.origStrokeWidth = iconSvg.getAttribute('stroke-width') || '';
+				}
+				if (!pathEl.dataset.origD) {
+					pathEl.dataset.origD = pathEl.getAttribute('d') || '';
+				}
+				iconSvg.setAttribute('stroke-width', '4');
+				pathEl.setAttribute('stroke-linecap', 'round');
+				pathEl.setAttribute('stroke-linejoin', 'round');
+				pathEl.setAttribute('d', 'M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z');
+			} catch (_) { }
+		}
+
+		function unlockIcon(iconSvg) {
+			if (!iconSvg) return;
+			try {
+				const pathEl = iconSvg.querySelector('path');
+				if (!pathEl) return;
+				if (iconSvg.dataset.origStrokeWidth) {
+					iconSvg.setAttribute('stroke-width', iconSvg.dataset.origStrokeWidth);
+				}
+				if (pathEl.dataset.origD) {
+					pathEl.setAttribute('d', pathEl.dataset.origD);
+				}
+			} catch (_) { }
+		}
+
 		markers.forEach((marker, index) => {
 			const delayMs = 400 + index * 200;
 			const id = setTimeout(() => {
@@ -27,6 +59,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (label) {
 					label.textContent = 'Secured';
 				}
+				const iconSvg = marker.querySelector('.secured-icon');
+				lockIcon(iconSvg);
 				// rotate any doors inside this marker around their local start (0,0)
 				const localDoors = marker.querySelectorAll('.door-bar');
 				localDoors.forEach((lineEl) => {
@@ -46,6 +80,21 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (label) {
 				label.textContent = 'Unlocked';
 			}
+			const iconSvg = marker.querySelector('.secured-icon');
+			// restore original/unlocked icon
+			(function unlockIcon(iconSvg) {
+				if (!iconSvg) return;
+				try {
+					const pathEl = iconSvg.querySelector('path');
+					if (!pathEl) return;
+					if (iconSvg.dataset.origStrokeWidth) {
+						iconSvg.setAttribute('stroke-width', iconSvg.dataset.origStrokeWidth);
+					}
+					if (pathEl.dataset.origD) {
+						pathEl.setAttribute('d', pathEl.dataset.origD);
+					}
+				} catch (_) { }
+			})(iconSvg);
 		});
 		// reset door rotations
 		allDoorLines.forEach((lineEl) => lineEl.removeAttribute('transform'));
