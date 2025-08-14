@@ -153,7 +153,7 @@ h3 {
 }
 
 .map {
-  background: center / cover url(./map.png) no-repeat;
+  /* background: center / cover url(./assets/images/secured.png) no-repeat; */
   flex-grow: 1;
   box-sizing: border-box;
 }
@@ -246,8 +246,24 @@ h3 {
 .secured-overlay .band-bottom {
   bottom: 35px;
 }
-/* remove legacy secured pseudo-element and band rules (replaced by .secured-overlay) */
-
+.secured-marker {
+  color: red;
+}
+.secured-marker.secured-on {
+  color: #42a16a;
+}
+.secured-icon {
+  display: block;
+}
+.secured-arrow {
+  display: block;
+}
+.secured-label {
+  font-size: 3.5em;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+}
 /* BSOD full-screen overlay */
 .bsod-overlay {
   position: absolute;
@@ -417,11 +433,11 @@ header li button {
     background: conic-gradient(
       yellow,
       yellow 90deg,
-      #000 90deg,
-      #000 180deg,
+      black 90deg,
+      black 180deg,
       yellow 180deg,
       yellow 270deg,
-      #000 270deg
+      black 270deg
     );
   }
 }
