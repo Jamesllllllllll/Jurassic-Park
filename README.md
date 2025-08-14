@@ -1,4 +1,4 @@
-# Jurassic-Park
+# It's a Unix system... I know this!
 
 A HTML & CSS recreation of the Jurassic Park control room application: 
 ### See it live:
